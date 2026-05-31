@@ -15,12 +15,16 @@ Brain-Dump is a personal knowledge base for technical notes, interview prep, and
 
 - [Git](./Git/README.md): three-part tutorial on Git objects, snapshots, and packfiles
 - [iOS](./iOS/README.md): iOS interview and study material
+- [Learning](./Learning/README.md): active learning plans, progress, Feynman tests, review cards, and migration workflow
 - [LeetCode](./LeetCode/README.md): TypeScript and JavaScript problem solutions by difficulty
 
 ### Directory Map
 
 ```text
 .
+├── .agent/
+│   └── skills/
+│       └── learn-anything/
 ├── Git/
 │   ├── README.md
 │   ├── 01-blob-object.md
@@ -31,6 +35,9 @@ Brain-Dump is a personal knowledge base for technical notes, interview prep, and
 │   └── interview/
 │       ├── ios-objective-c-qa-2025-06-20.md
 │       └── xiaomi-2024-ios-written-test.md
+├── Learning/
+│   ├── README.md
+│   └── templates/
 └── LeetCode/
     ├── README.md
     ├── Easy/
@@ -62,12 +69,16 @@ Brain-Dump 是一个个人技术知识库，用来整理技术笔记、面试资
 
 - [Git](./Git/README.md)：Git 对象模型、快照结构与 packfile 的三篇教程
 - [iOS](./iOS/README.md)：iOS 面试与学习资料
+- [Learning](./Learning/README.md)：主动学习计划、进度记录、费曼测验、复习卡和知识库沉淀流程
 - [LeetCode](./LeetCode/README.md)：按难度分类的 TypeScript / JavaScript 题解
 
 ### 目录结构
 
 ```text
 .
+├── .agent/
+│   └── skills/
+│       └── learn-anything/
 ├── Git/
 │   ├── README.md
 │   ├── 01-blob-object.md
@@ -78,6 +89,9 @@ Brain-Dump 是一个个人技术知识库，用来整理技术笔记、面试资
 │   └── interview/
 │       ├── ios-objective-c-qa-2025-06-20.md
 │       └── xiaomi-2024-ios-written-test.md
+├── Learning/
+│   ├── README.md
+│   └── templates/
 └── LeetCode/
     ├── README.md
     ├── Easy/

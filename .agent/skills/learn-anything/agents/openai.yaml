@@ -1,0 +1,4 @@
+interface:
+  display_name: "Learn Anything"
+  short_description: "Plan, continue, test, and archive Markdown-first learning topics"
+  default_prompt: "Help me start or continue learning a technical topic in Brain-Dump."
