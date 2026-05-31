@@ -4,6 +4,8 @@
 
 Use it for learning plans, progress tracking, source lists, session logs, Feynman tests, review cards, and draft notes. Final systematized notes should be migrated to the outer knowledge-base directories such as `Git/`, `iOS/`, `LeetCode/`, or future topic directories.
 
+The project-local learning workflow skill lives at `.agent/skills/learn-anything/`. Keep `Learning/` focused on learning data and templates.
+
 ## Directory Shape
 
 ```text

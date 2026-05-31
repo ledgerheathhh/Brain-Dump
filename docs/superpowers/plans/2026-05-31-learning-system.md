@@ -4,7 +4,7 @@
 
 **Goal:** Build the first version of the Brain-Dump learning system: Markdown learning workspace templates, a deterministic topic scaffolder, and a `learn-anything` Codex skill.
 
-**Architecture:** Keep durable learning state in repository Markdown under `Learning/`. Use a small shell script to create consistent topic workspaces from templates. Store the skill source inside the repository at `Learning/codex-skills/learn-anything` and use it project-locally for Brain-Dump learning work.
+**Architecture:** Keep durable learning state in repository Markdown under `Learning/`. Use a small shell script to create consistent topic workspaces from templates. Store the skill source inside the repository at `.agent/skills/learn-anything` and use it project-locally for Brain-Dump learning work.
 
 **Tech Stack:** Markdown, POSIX shell, Git, Codex skills.
 
@@ -36,13 +36,13 @@ Create or modify these files:
   - Template for daily learning sessions.
 - Create: `Learning/templates/topic/drafts/node.md`
   - Template for systematized draft notes.
-- Create: `Learning/codex-skills/learn-anything/SKILL.md`
+- Create: `.agent/skills/learn-anything/SKILL.md`
   - Source-controlled skill instructions.
-- Create: `Learning/codex-skills/learn-anything/agents/openai.yaml`
+- Create: `.agent/skills/learn-anything/agents/openai.yaml`
   - UI metadata for the skill.
 - Modify: `README.md`
   - Add `Learning/` to the main area list and directory map.
-- Keep project-local skill source: `Learning/codex-skills/learn-anything/`
+- Keep project-local skill source: `.agent/skills/learn-anything/`
   - Use this repository-local skill source when working in Brain-Dump. Do not install it globally unless the user explicitly asks later.
 
 ## Task 1: Add Repository Validation Script
@@ -92,8 +92,8 @@ required_files=(
   "Learning/templates/topic/archive.md"
   "Learning/templates/topic/sessions/session.md"
   "Learning/templates/topic/drafts/node.md"
-  "Learning/codex-skills/learn-anything/SKILL.md"
-  "Learning/codex-skills/learn-anything/agents/openai.yaml"
+  ".agent/skills/learn-anything/SKILL.md"
+  ".agent/skills/learn-anything/agents/openai.yaml"
   "scripts/new-learning-topic.sh"
 )
 
@@ -113,8 +113,8 @@ require_text "Learning/templates/topic/reviews.md" "## Review Schedule"
 require_text "Learning/templates/topic/archive.md" "## Migration Records"
 require_text "Learning/templates/topic/drafts/node.md" "## What Problem This Solves"
 require_text "Learning/templates/topic/drafts/node.md" "## Open Questions"
-require_text "Learning/codex-skills/learn-anything/SKILL.md" "name: learn-anything"
-require_text "Learning/codex-skills/learn-anything/SKILL.md" "Read the topic workspace before acting"
+require_text ".agent/skills/learn-anything/SKILL.md" "name: learn-anything"
+require_text ".agent/skills/learn-anything/SKILL.md" "Read the topic workspace before acting"
 require_text "README.md" "[Learning](./Learning/README.md)"
 
 printf 'PASS: learning system repository checks passed\n'
@@ -607,20 +607,20 @@ Expected: commit succeeds.
 ## Task 4: Add Source-Controlled Codex Skill
 
 **Files:**
-- Create: `Learning/codex-skills/learn-anything/SKILL.md`
-- Create: `Learning/codex-skills/learn-anything/agents/openai.yaml`
+- Create: `.agent/skills/learn-anything/SKILL.md`
+- Create: `.agent/skills/learn-anything/agents/openai.yaml`
 
 - [ ] **Step 1: Initialize the skill folder using skill-creator**
 
 Run:
 
 ```bash
-python3 /Users/ledgerheath/.codex/skills/.system/skill-creator/scripts/init_skill.py learn-anything --path Learning/codex-skills --interface display_name="Learn Anything" --interface short_description="Plan, continue, test, and archive Markdown-first learning topics." --interface default_prompt="Help me start or continue learning a technical topic in Brain-Dump."
+python3 /Users/ledgerheath/.codex/skills/.system/skill-creator/scripts/init_skill.py learn-anything --path .agent/skills --interface display_name="Learn Anything" --interface short_description="Plan, continue, test, and archive Markdown-first learning topics." --interface default_prompt="Help me start or continue learning a technical topic in Brain-Dump."
 ```
 
-Expected: creates `Learning/codex-skills/learn-anything/` with `SKILL.md` and `agents/openai.yaml`.
+Expected: creates `.agent/skills/learn-anything/` with `SKILL.md` and `agents/openai.yaml`.
 
-- [ ] **Step 2: Replace `Learning/codex-skills/learn-anything/SKILL.md`**
+- [ ] **Step 2: Replace `.agent/skills/learn-anything/SKILL.md`**
 
 Replace the generated file with:
 
@@ -765,7 +765,7 @@ Review schedule:
 Run:
 
 ```bash
-env PYTHONPATH=/private/tmp/quick_validate_yaml python3 /Users/ledgerheath/.codex/skills/.system/skill-creator/scripts/quick_validate.py Learning/codex-skills/learn-anything
+env PYTHONPATH=/private/tmp/quick_validate_yaml python3 /Users/ledgerheath/.codex/skills/.system/skill-creator/scripts/quick_validate.py .agent/skills/learn-anything
 ```
 
 Expected: validation passes.
@@ -775,7 +775,7 @@ Expected: validation passes.
 Run:
 
 ```bash
-git add Learning/codex-skills/learn-anything
+git add .agent/skills/learn-anything
 git commit -m "feat: add learn-anything skill source"
 ```
 
@@ -865,8 +865,8 @@ Expected: commit succeeds.
 Run:
 
 ```bash
-test -f Learning/codex-skills/learn-anything/SKILL.md
-test -f Learning/codex-skills/learn-anything/agents/openai.yaml
+test -f .agent/skills/learn-anything/SKILL.md
+test -f .agent/skills/learn-anything/agents/openai.yaml
 ```
 
 Expected: both commands exit with status 0.
@@ -876,7 +876,7 @@ Expected: both commands exit with status 0.
 Run:
 
 ```bash
-env PYTHONPATH=/private/tmp/quick_validate_yaml python3 /Users/ledgerheath/.codex/skills/.system/skill-creator/scripts/quick_validate.py Learning/codex-skills/learn-anything
+env PYTHONPATH=/private/tmp/quick_validate_yaml python3 /Users/ledgerheath/.codex/skills/.system/skill-creator/scripts/quick_validate.py .agent/skills/learn-anything
 ```
 
 Expected: validation passes.
@@ -886,13 +886,13 @@ Expected: validation passes.
 Run:
 
 ```bash
-printf 'Using project-local skill source: Learning/codex-skills/learn-anything\n'
+printf 'Using project-local skill source: .agent/skills/learn-anything\n'
 ```
 
 Expected output:
 
 ```text
-Using project-local skill source: Learning/codex-skills/learn-anything
+Using project-local skill source: .agent/skills/learn-anything
 ```
 
 ## Task 7: Final Verification And Git Review
@@ -906,7 +906,7 @@ Run:
 
 ```bash
 scripts/validate-learning-system.sh
-env PYTHONPATH=/private/tmp/quick_validate_yaml python3 /Users/ledgerheath/.codex/skills/.system/skill-creator/scripts/quick_validate.py Learning/codex-skills/learn-anything
+env PYTHONPATH=/private/tmp/quick_validate_yaml python3 /Users/ledgerheath/.codex/skills/.system/skill-creator/scripts/quick_validate.py .agent/skills/learn-anything
 ```
 
 Expected:
@@ -967,5 +967,5 @@ Placeholder scan:
 Type and name consistency:
 
 - The topic scaffolder expects the same template paths validated by `scripts/validate-learning-system.sh`.
-- The skill source path is `Learning/codex-skills/learn-anything`; no global install path is required for the current project-local workflow.
+- The skill source path is `.agent/skills/learn-anything`; no global install path is required for the current project-local workflow.
 - Triggering skill name is consistently `learn-anything`.

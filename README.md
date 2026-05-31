@@ -22,6 +22,9 @@ Brain-Dump is a personal knowledge base for technical notes, interview prep, and
 
 ```text
 .
+├── .agent/
+│   └── skills/
+│       └── learn-anything/
 ├── Git/
 │   ├── README.md
 │   ├── 01-blob-object.md
@@ -73,6 +76,9 @@ Brain-Dump 是一个个人技术知识库，用来整理技术笔记、面试资
 
 ```text
 .
+├── .agent/
+│   └── skills/
+│       └── learn-anything/
 ├── Git/
 │   ├── README.md
 │   ├── 01-blob-object.md

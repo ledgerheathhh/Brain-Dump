@@ -35,8 +35,8 @@ required_files=(
   "Learning/templates/topic/archive.md"
   "Learning/templates/topic/sessions/session.md"
   "Learning/templates/topic/drafts/node.md"
-  "Learning/codex-skills/learn-anything/SKILL.md"
-  "Learning/codex-skills/learn-anything/agents/openai.yaml"
+  ".agent/skills/learn-anything/SKILL.md"
+  ".agent/skills/learn-anything/agents/openai.yaml"
   "scripts/new-learning-topic.sh"
 )
 
@@ -56,8 +56,8 @@ require_text "Learning/templates/topic/reviews.md" "## Review Schedule"
 require_text "Learning/templates/topic/archive.md" "## Migration Records"
 require_text "Learning/templates/topic/drafts/node.md" "## What Problem This Solves"
 require_text "Learning/templates/topic/drafts/node.md" "## Open Questions"
-require_text "Learning/codex-skills/learn-anything/SKILL.md" "name: learn-anything"
-require_text "Learning/codex-skills/learn-anything/SKILL.md" "Read the topic workspace before acting"
+require_text ".agent/skills/learn-anything/SKILL.md" "name: learn-anything"
+require_text ".agent/skills/learn-anything/SKILL.md" "Read the topic workspace before acting"
 require_text "README.md" "[Learning](./Learning/README.md)"
 
 printf 'PASS: learning system repository checks passed\n'
