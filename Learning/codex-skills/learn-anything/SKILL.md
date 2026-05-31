@@ -49,7 +49,7 @@ When the user asks to continue:
 2. Check current node, `Next Action`, weak points, due review cards, and latest session.
 3. Default to the planned next step.
 4. If weak points or due cards exist, insert review or repair before advancing.
-5. Write the session outcome to `sessions/YYYY-MM-DD.md`.
+5. Append or update a clearly dated section in `sessions/YYYY-MM-DD.md`; never replace earlier same-day session content.
 6. Update the matching draft in `drafts/` when durable knowledge was produced.
 7. Update `progress.md`, `feynman.md`, and `reviews.md` only for real state changes.
 
@@ -80,6 +80,7 @@ When the user asks to migrate, settle, or archive a node:
 
 1. Read the relevant draft, sessions, Feynman feedback, and review cards.
 2. Produce a polished note in the target outer knowledge-base directory.
+   If the target note already exists, read it first and merge intentionally, or ask before replacing it.
 3. Preserve useful source links.
 4. Update `archive.md` with date, node, source draft, target note, status, and unresolved questions.
 5. Mark a node `done` only when the migrated note exists and blocking weak points are resolved.
