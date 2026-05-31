@@ -17,8 +17,8 @@ Feedback:
 
 Follow-up Questions:
 
-- 
+-
 
 Misconceptions:
 
-- 
+-

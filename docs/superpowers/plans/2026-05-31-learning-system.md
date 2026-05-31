@@ -4,7 +4,7 @@
 
 **Goal:** Build the first version of the Brain-Dump learning system: Markdown learning workspace templates, a deterministic topic scaffolder, and a `learn-anything` Codex skill.
 
-**Architecture:** Keep durable learning state in repository Markdown under `Learning/`. Use a small shell script to create consistent topic workspaces from templates. Store the skill source in the repository and install a copy to `~/.codex/skills/learn-anything` so Codex can use the workflow in later conversations.
+**Architecture:** Keep durable learning state in repository Markdown under `Learning/`. Use a small shell script to create consistent topic workspaces from templates. Store the skill source inside the repository at `Learning/codex-skills/learn-anything` and use it project-locally for Brain-Dump learning work.
 
 **Tech Stack:** Markdown, POSIX shell, Git, Codex skills.
 
@@ -765,7 +765,7 @@ Review schedule:
 Run:
 
 ```bash
-python3 /Users/ledgerheath/.codex/skills/.system/skill-creator/scripts/quick_validate.py Learning/codex-skills/learn-anything
+env PYTHONPATH=/private/tmp/quick_validate_yaml python3 /Users/ledgerheath/.codex/skills/.system/skill-creator/scripts/quick_validate.py Learning/codex-skills/learn-anything
 ```
 
 Expected: validation passes.
@@ -906,7 +906,7 @@ Run:
 
 ```bash
 scripts/validate-learning-system.sh
-python3 /Users/ledgerheath/.codex/skills/.system/skill-creator/scripts/quick_validate.py Learning/codex-skills/learn-anything
+env PYTHONPATH=/private/tmp/quick_validate_yaml python3 /Users/ledgerheath/.codex/skills/.system/skill-creator/scripts/quick_validate.py Learning/codex-skills/learn-anything
 ```
 
 Expected:
@@ -957,7 +957,7 @@ Spec coverage:
 - Deterministic continuation from saved state: Task 4 requires reading `progress.md` first.
 - Feynman tests: Task 2 `feynman.md` and Task 4 workflow.
 - Migration and archive: Task 2 `archive.md` and Task 4 migration workflow.
-- Installed Codex skill: Task 6.
+- Project-local Codex skill source: Tasks 4 and 6.
 
 Placeholder scan:
 
