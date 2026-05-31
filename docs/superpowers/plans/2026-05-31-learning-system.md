@@ -42,8 +42,8 @@ Create or modify these files:
   - UI metadata for the skill.
 - Modify: `README.md`
   - Add `Learning/` to the main area list and directory map.
-- Install copy outside the repository: `/Users/ledgerheath/.codex/skills/learn-anything/`
-  - Copy from `Learning/codex-skills/learn-anything/` after validation. This requires approval because it writes outside the repository.
+- Keep project-local skill source: `Learning/codex-skills/learn-anything/`
+  - Use this repository-local skill source when working in Brain-Dump. Do not install it globally unless the user explicitly asks later.
 
 ## Task 1: Add Repository Validation Script
 
@@ -855,46 +855,44 @@ git commit -m "docs: document learning workspace"
 
 Expected: commit succeeds.
 
-## Task 6: Install The Skill For Codex
+## Task 6: Keep The Skill Project-Local
 
 **Files:**
-- Create outside repo: `/Users/ledgerheath/.codex/skills/learn-anything/SKILL.md`
-- Create outside repo: `/Users/ledgerheath/.codex/skills/learn-anything/agents/openai.yaml`
+- No new files.
 
-- [ ] **Step 1: Copy the source-controlled skill into the Codex skill directory**
-
-Run with approval because it writes outside the repository:
-
-```bash
-mkdir -p /Users/ledgerheath/.codex/skills/learn-anything
-cp -R Learning/codex-skills/learn-anything/. /Users/ledgerheath/.codex/skills/learn-anything/
-```
-
-Expected: copy succeeds.
-
-- [ ] **Step 2: Validate the installed skill**
+- [ ] **Step 1: Confirm the project-local skill source exists**
 
 Run:
 
 ```bash
-python3 /Users/ledgerheath/.codex/skills/.system/skill-creator/scripts/quick_validate.py /Users/ledgerheath/.codex/skills/learn-anything
+test -f Learning/codex-skills/learn-anything/SKILL.md
+test -f Learning/codex-skills/learn-anything/agents/openai.yaml
+```
+
+Expected: both commands exit with status 0.
+
+- [ ] **Step 2: Validate the project-local skill**
+
+Run:
+
+```bash
+env PYTHONPATH=/private/tmp/quick_validate_yaml python3 /Users/ledgerheath/.codex/skills/.system/skill-creator/scripts/quick_validate.py Learning/codex-skills/learn-anything
 ```
 
 Expected: validation passes.
 
-- [ ] **Step 3: Confirm installed files**
+- [ ] **Step 3: Confirm no global install is required**
 
 Run:
 
 ```bash
-find /Users/ledgerheath/.codex/skills/learn-anything -maxdepth 3 -type f -print
+printf 'Using project-local skill source: Learning/codex-skills/learn-anything\n'
 ```
 
-Expected output includes:
+Expected output:
 
 ```text
-/Users/ledgerheath/.codex/skills/learn-anything/SKILL.md
-/Users/ledgerheath/.codex/skills/learn-anything/agents/openai.yaml
+Using project-local skill source: Learning/codex-skills/learn-anything
 ```
 
 ## Task 7: Final Verification And Git Review
@@ -969,5 +967,5 @@ Placeholder scan:
 Type and name consistency:
 
 - The topic scaffolder expects the same template paths validated by `scripts/validate-learning-system.sh`.
-- The skill source path is `Learning/codex-skills/learn-anything`, and the installed path is `/Users/ledgerheath/.codex/skills/learn-anything`.
+- The skill source path is `Learning/codex-skills/learn-anything`; no global install path is required for the current project-local workflow.
 - Triggering skill name is consistently `learn-anything`.
