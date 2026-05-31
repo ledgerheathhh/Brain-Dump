@@ -33,8 +33,14 @@ if [ -z "$SLUG" ]; then
   exit 2
 fi
 
+if [[ ! "$SLUG" =~ ^[a-z0-9]([a-z0-9-]*[a-z0-9])?$ ]]; then
+  printf 'ERROR: topic slug must use lowercase letters, digits, and hyphens only, with no leading or trailing hyphen: %s\n' "$SLUG" >&2
+  exit 2
+fi
+
 TEMPLATE_DIR="$ROOT_DIR/Learning/templates/topic"
 TOPIC_DIR="$ROOT_DIR/Learning/topics/$SLUG"
+TOPICS_DIR="$ROOT_DIR/Learning/topics"
 TODAY="$(date +%Y-%m-%d)"
 
 [ -d "$TEMPLATE_DIR" ] || {
@@ -42,33 +48,56 @@ TODAY="$(date +%Y-%m-%d)"
   exit 1
 }
 
+mkdir -p "$TOPICS_DIR"
+
 if [ -e "$TOPIC_DIR" ]; then
   printf 'ERROR: topic already exists: %s\n' "$TOPIC_DIR" >&2
   exit 1
 fi
 
-mkdir -p "$TOPIC_DIR/sessions" "$TOPIC_DIR/drafts"
+TMP_TOPIC_DIR="$(mktemp -d "$TOPICS_DIR/.new-topic.$SLUG.XXXXXX")"
+
+cleanup_tmp_topic_dir() {
+  rm -rf "$TMP_TOPIC_DIR"
+}
+
+trap cleanup_tmp_topic_dir EXIT
+
+mkdir -p "$TMP_TOPIC_DIR/sessions" "$TMP_TOPIC_DIR/drafts"
+
+escape_sed_replacement() {
+  printf '%s' "$1" | sed 's/[&|\\]/\\&/g'
+}
 
 render_template() {
   local src="$1"
   local dst="$2"
   local node_title="${3:-Orientation}"
+  local escaped_topic escaped_target_kb escaped_today escaped_node_title
+  escaped_topic="$(escape_sed_replacement "$TOPIC")"
+  escaped_target_kb="$(escape_sed_replacement "$TARGET_KB")"
+  escaped_today="$(escape_sed_replacement "$TODAY")"
+  escaped_node_title="$(escape_sed_replacement "$node_title")"
+
   sed \
-    -e "s|{{TOPIC}}|$TOPIC|g" \
-    -e "s|{{TARGET_KB}}|$TARGET_KB|g" \
-    -e "s|{{DATE}}|$TODAY|g" \
-    -e "s|{{NODE_TITLE}}|$node_title|g" \
+    -e "s|{{TOPIC}}|$escaped_topic|g" \
+    -e "s|{{TARGET_KB}}|$escaped_target_kb|g" \
+    -e "s|{{DATE}}|$escaped_today|g" \
+    -e "s|{{NODE_TITLE}}|$escaped_node_title|g" \
     "$src" > "$dst"
 }
 
-render_template "$TEMPLATE_DIR/plan.md" "$TOPIC_DIR/plan.md"
-render_template "$TEMPLATE_DIR/progress.md" "$TOPIC_DIR/progress.md"
-render_template "$TEMPLATE_DIR/resources.md" "$TOPIC_DIR/resources.md"
-render_template "$TEMPLATE_DIR/feynman.md" "$TOPIC_DIR/feynman.md"
-render_template "$TEMPLATE_DIR/reviews.md" "$TOPIC_DIR/reviews.md"
-render_template "$TEMPLATE_DIR/archive.md" "$TOPIC_DIR/archive.md"
-render_template "$TEMPLATE_DIR/sessions/session.md" "$TOPIC_DIR/sessions/$TODAY.md"
-render_template "$TEMPLATE_DIR/drafts/node.md" "$TOPIC_DIR/drafts/orientation.md" "Orientation"
+render_template "$TEMPLATE_DIR/plan.md" "$TMP_TOPIC_DIR/plan.md"
+render_template "$TEMPLATE_DIR/progress.md" "$TMP_TOPIC_DIR/progress.md"
+render_template "$TEMPLATE_DIR/resources.md" "$TMP_TOPIC_DIR/resources.md"
+render_template "$TEMPLATE_DIR/feynman.md" "$TMP_TOPIC_DIR/feynman.md"
+render_template "$TEMPLATE_DIR/reviews.md" "$TMP_TOPIC_DIR/reviews.md"
+render_template "$TEMPLATE_DIR/archive.md" "$TMP_TOPIC_DIR/archive.md"
+render_template "$TEMPLATE_DIR/sessions/session.md" "$TMP_TOPIC_DIR/sessions/$TODAY.md"
+render_template "$TEMPLATE_DIR/drafts/node.md" "$TMP_TOPIC_DIR/drafts/orientation.md" "Orientation"
+
+mv "$TMP_TOPIC_DIR" "$TOPIC_DIR"
+trap - EXIT
 
 printf 'Created learning topic: %s\n' "$TOPIC_DIR"
 printf 'Target knowledge base: %s\n' "$TARGET_KB"
