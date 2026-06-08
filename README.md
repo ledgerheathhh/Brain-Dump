@@ -14,6 +14,7 @@ Brain-Dump is a personal knowledge base for technical notes, interview prep, and
 ### Main Areas
 
 - [Git](./Git/README.md): three-part tutorial on Git objects, snapshots, and packfiles
+- [Frontend](./Frontend/README.md): frontend notes for CSS layout, browser compatibility, and web runtime behavior
 - [iOS](./iOS/README.md): iOS interview and study material
 - [Learning](./Learning/README.md): active learning plans, progress, Feynman tests, review cards, and migration workflow
 - [LeetCode](./LeetCode/README.md): TypeScript and JavaScript problem solutions by difficulty
@@ -30,6 +31,11 @@ Brain-Dump is a personal knowledge base for technical notes, interview prep, and
 │   ├── 01-blob-object.md
 │   ├── 02-tree-commit-tag.md
 │   └── 03-packfile.md
+├── Frontend/
+│   ├── README.md
+│   └── CSS/
+│       ├── README.md
+│       └── css-gap-flex-compatibility.md
 ├── iOS/
 │   ├── README.md
 │   └── interview/
@@ -68,6 +74,7 @@ Brain-Dump 是一个个人技术知识库，用来整理技术笔记、面试资
 ### 主要内容
 
 - [Git](./Git/README.md)：Git 对象模型、快照结构与 packfile 的三篇教程
+- [Frontend](./Frontend/README.md)：CSS 布局、浏览器兼容性与 Web 运行环境相关笔记
 - [iOS](./iOS/README.md)：iOS 面试与学习资料
 - [Learning](./Learning/README.md)：主动学习计划、进度记录、费曼测验、复习卡和知识库沉淀流程
 - [LeetCode](./LeetCode/README.md)：按难度分类的 TypeScript / JavaScript 题解
@@ -84,6 +91,11 @@ Brain-Dump 是一个个人技术知识库，用来整理技术笔记、面试资
 │   ├── 01-blob-object.md
 │   ├── 02-tree-commit-tag.md
 │   └── 03-packfile.md
+├── Frontend/
+│   ├── README.md
+│   └── CSS/
+│       ├── README.md
+│       └── css-gap-flex-compatibility.md
 ├── iOS/
 │   ├── README.md
 │   └── interview/
